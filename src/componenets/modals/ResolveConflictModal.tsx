@@ -1,7 +1,7 @@
 /**
  * Модальное окно для разрешения конфликта между элементами
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   DialogTitle,
   DialogContent,
@@ -22,7 +22,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { updateConflictStatus } from '../../store/slices/worldSlice';
 import { addNotification } from '../../store/slices/uiSlice';
-import { WorldElement, Conflict } from '../../types/Element';
 
 interface ResolveConflictModalProps {
   onClose: () => void;
