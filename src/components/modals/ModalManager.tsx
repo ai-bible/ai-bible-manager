@@ -6,23 +6,13 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { closeModal, ModalType } from '../../store/slices/uiSlice';
 
-// Компоненты модальных окон
-import CreateWorldModal from './CreateWorldModal';
-import CreateElementModal from './CreateElementModal';
-import EditElementModal from './EditElementModal';
-import DeleteElementModal from './DeleteElementModal';
-import CreateRelationshipModal from './CreateRelationshipModal';
-import CreateChapterModal from './CreateChapterModal';
-import EditChapterModal from './EditChapterModal';
-import CreateSnapshotModal from './CreateSnapshotModal';
+// Импортируем реализованные модальные окна
 import RestoreSnapshotModal from './RestoreSnapshotModal';
-import CreateBriefTemplateModal from './CreateBriefTemplateModal';
-import EditBriefTemplateModal from './EditBriefTemplateModal';
-import GenerateBriefModal from './GenerateBriefModal';
-import ExportWorldModal from './ExportWorldModal';
-import ImportWorldModal from './ImportWorldModal';
-import SettingsModal from './SettingsModal';
 import ResolveConflictModal from './ResolveConflictModal';
+import EditElementModal from './EditElementModal';
+import CreateSnapshotModal from './CreateSnapshotModal';
+import CreateChapterModal from './CreateChapterModal';
+import CreateElementModal from './CreateElementModal';
 
 const ModalManager: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -278,12 +268,6 @@ const ModalManager: React.FC = () => {
   );
 };
 
-// Экспортируем заглушки модальных окон, которые будут реализованы позже
-const placeholderModalProps = {
-  onClose: () => {},
-  data: {}
-};
-
 // Заглушка для модальных окон, которые еще не реализованы
 const PlaceholderModal: React.FC<{ title: string, onClose: () => void }> = ({ title, onClose }) => (
   <>
@@ -297,17 +281,9 @@ const PlaceholderModal: React.FC<{ title: string, onClose: () => void }> = ({ ti
   </>
 );
 
-// Компоненты модальных окон (заглушки, будут реализованы позже)
+// Заглушки для нереализованных модальных окон
 const CreateWorldModal: React.FC<any> = (props) => (
   <PlaceholderModal title="Создание мира" onClose={props.onClose} />
-);
-
-const CreateElementModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Создание элемента" onClose={props.onClose} />
-);
-
-const EditElementModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Редактирование элемента" onClose={props.onClose} />
 );
 
 const DeleteElementModal: React.FC<any> = (props) => (
@@ -318,20 +294,8 @@ const CreateRelationshipModal: React.FC<any> = (props) => (
   <PlaceholderModal title="Создание связи" onClose={props.onClose} />
 );
 
-const CreateChapterModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Создание главы" onClose={props.onClose} />
-);
-
 const EditChapterModal: React.FC<any> = (props) => (
   <PlaceholderModal title="Редактирование главы" onClose={props.onClose} />
-);
-
-const CreateSnapshotModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Создание снимка" onClose={props.onClose} />
-);
-
-const RestoreSnapshotModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Восстановление из снимка" onClose={props.onClose} />
 );
 
 const CreateBriefTemplateModal: React.FC<any> = (props) => (
@@ -356,10 +320,6 @@ const ImportWorldModal: React.FC<any> = (props) => (
 
 const SettingsModal: React.FC<any> = (props) => (
   <PlaceholderModal title="Настройки" onClose={props.onClose} />
-);
-
-const ResolveConflictModal: React.FC<any> = (props) => (
-  <PlaceholderModal title="Разрешение конфликта" onClose={props.onClose} />
 );
 
 export default ModalManager;

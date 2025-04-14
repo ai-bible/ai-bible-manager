@@ -4,10 +4,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, CircularProgress } from '@mui/material';
-import ForceGraph2D, { ForceGraphMethods } from 'react-force-graph';
+import 'aframe';
+import { ForceGraph2D } from 'react-force-graph';
 import { useAppSelector } from '../../store/hooks';
 import { WorldElement } from '../../types/Element';
 
+interface ForceGraphMethods {
+  zoomToFit: (duration: number, padding?: number) => void;
+}
 interface RelationshipGraphProps {
   centerElementId?: string;
   depth?: number;
