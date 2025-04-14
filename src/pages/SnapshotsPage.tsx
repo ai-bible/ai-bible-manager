@@ -7,14 +7,6 @@ import {
   Typography,
   Paper,
   Button,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  IconButton,
-  Chip,
-  Badge,
   Alert,
   Divider,
   Card,
@@ -25,24 +17,21 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  useTheme,
   Grid
 } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { openModal } from '../store/slices/uiSlice';
-import { createSnapshot, restoreFromSnapshot } from '../store/slices/worldSlice';
+import { restoreFromSnapshot } from '../store/slices/worldSlice';
 import { addNotification } from '../store/slices/uiSlice';
 
 // Иконки
 import AddIcon from '@mui/icons-material/Add';
 import RestoreIcon from '@mui/icons-material/Restore';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import HistoryIcon from '@mui/icons-material/History';
 
 const SnapshotsPage: React.FC = () => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
   
   // Получаем данные из хранилища
@@ -161,12 +150,7 @@ const SnapshotsPage: React.FC = () => {
                       {formatDate(new Date(snapshot.date))}
                     </Typography>
                     {snapshot.chapterId && (
-                      <Chip 
-                        label={getChapterName(snapshot.chapterId, currentWorld.chapters)}
-                        size="small"
-                        color="secondary"
-                        icon={<BookmarkIcon />}
-                      />
+                      <BookmarkIcon color="secondary" />
                     )}
                   </Box>
                   
@@ -177,7 +161,14 @@ const SnapshotsPage: React.FC = () => {
                   {snapshot.tags && snapshot.tags.length > 0 && (
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                       {snapshot.tags.map(tag => (
-                        <Chip key={tag} label={tag} size="small" />
+                        <Typography key={tag} variant="caption" sx={{ 
+                          bgcolor: 'action.selected', 
+                          px: 1, 
+                          py: 0.5, 
+                          borderRadius: 1 
+                        }}>
+                          {tag}
+                        </Typography>
                       ))}
                     </Box>
                   )}
@@ -186,7 +177,6 @@ const SnapshotsPage: React.FC = () => {
                   <Button
                     size="small"
                     startIcon={<RestoreIcon />}
-                    color="primary"
                     onClick={() => handleOpenRestoreDialog(snapshot.id)}
                   >
                     Восстановить
@@ -219,12 +209,6 @@ const SnapshotsPage: React.FC = () => {
                 <Alert severity="warning" sx={{ mb: 2 }}>
                   Все несохраненные изменения будут потеряны. Текущее состояние мира будет автоматически сохранено в новый снимок.
                 </Alert>
-                
-                <Typography variant="body2">
-                  Описание снимка: {
-                    currentWorld.snapshots.find(s => s.id === snapshotToRestore)?.description
-                  }
-                </Typography>
               </>
             )}
           </DialogContentText>
@@ -251,11 +235,6 @@ const formatDate = (date: Date): string => {
     hour: '2-digit',
     minute: '2-digit'
   }).format(date);
-};
-
-const getChapterName = (chapterId: string, chapters: any[]): string => {
-  const chapter = chapters.find(c => c.id === chapterId);
-  return chapter ? chapter.title : 'Неизвестная глава';
 };
 
 export default SnapshotsPage;
